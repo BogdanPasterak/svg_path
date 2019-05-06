@@ -29,8 +29,12 @@ const view = {
         yView.innerText = myData.y;
     },
     addStep: function (text) {
-        textarea.value += text;
-        myData.l = "";
+        if (text.length > 0) {
+            myData.l = "";
+            myData.count = 0;
+            textarea.value += text;
+            textarea.value += "\n";
+        }
     }
 };
 
@@ -68,11 +72,12 @@ function keyUpEvent(event) {
         } else if ('MmLlHhVvCcSsQqTtAaZz'.split('').includes(key)) {
             myData.l = key;
         } else if (key == 'Enter') {
+            // add to list of command
             let text = '';
             if (myData.l == 'Z' || myData.l == 'z') {
                 text = 'Z';
             } else {
-                text = myData.l + " " + myData.x + " " + myData.y + "\n";
+                text = myData.l + " " + myData.x + " " + myData.y;
             }
             view.addStep(text);    
         } else {
