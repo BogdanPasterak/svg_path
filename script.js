@@ -76,6 +76,23 @@ function keyUpEvent(event) {
             let text = '';
             if (myData.l == 'Z' || myData.l == 'z') {
                 text = 'Z';
+            } else if (myData.l == 'C' || myData.l == 'c') {
+                if (myData.count == 0) {
+                    ;
+                    myData.count++;
+                } else if (myData.count == 1) {
+                    ;
+                    myData.count++;
+                } else {
+                    ;
+                }
+            } else if (myData.l == 'S' || myData.l == 's' || myData.l == 'Q' || myData.l == 'q' || myData.l == 'A' || myData.l == 'a') {
+                if (myData.count == 0) {
+                    ;
+                    myData.count++;
+                } else {
+                    ;
+                }
             } else {
                 text = myData.l + " " + myData.x + " " + myData.y;
             }
