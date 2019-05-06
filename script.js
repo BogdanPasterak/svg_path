@@ -41,7 +41,7 @@ function keyUpEvent(event) {
 
     //console.log(document.activeElement);
     if (document.activeElement === document.querySelector('textarea')) {
-        let pos = view.textarea.selectionStart;
+        let pos = view.textarea.selectionStart || 0;
         console.log(pos, view.textarea.value);
     } else {
         let change = true;
@@ -68,10 +68,13 @@ function keyUpEvent(event) {
         } else if ('MmLlHhVvCcSsQqTtAaZz'.split('').includes(key)) {
             myData.l = key;
         } else if (key == 'Enter') {
-            // add point
-            //console.log(view);
-            let text = myData.l + " " + myData.x + " " + myData.y + "\n";
-            view.addStep(text);
+            let text = '';
+            if (myData.l == 'Z' || myData.l == 'z') {
+                text = 'Z';
+            } else {
+                text = myData.l + " " + myData.x + " " + myData.y + "\n";
+            }
+            view.addStep(text);    
         } else {
             console.log(key);
             change = false;
