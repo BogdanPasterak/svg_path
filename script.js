@@ -1,6 +1,7 @@
 const myData = {
     x: 0,
     y: 0,
+    l: 'M',
 
     init: () => {
         //console.log("Start");
@@ -14,11 +15,21 @@ const view = {
         board = document.querySelector('.board');
         cursor = document.querySelector('.cursor');
         textarea = document.querySelector('textarea');
+        xView = document.querySelector('.x-view');
+        yView = document.querySelector('.y-view');
+        lView = document.querySelector('.l-view');
     },
     rePaint: function () {
         //console.log(cursor);
+        lView.innerText = myData.l;
         cursor.setAttribute('cx', myData.x);
+        xView.innerText = myData.x;
         cursor.setAttribute('cy', myData.y);
+        yView.innerText = myData.y;
+    },
+    addStep: function(text) {
+        textarea.value += text;
+        myData.l = "";
     }
 };
 
@@ -52,6 +63,11 @@ function keyUpEvent(event) {
                 myData.y += 3;
             else if (myData.y < 20)
                 myData.y++;
+        } else if (key == 'Enter') {
+            // add point
+            //console.log(view);
+            let text = myData.l + " " + myData.x + " " + myData.y + "\n";
+            view.addStep(text);
         } else {
             console.log(key);
             change = false;
