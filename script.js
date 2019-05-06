@@ -2,6 +2,7 @@ const myData = {
     x: 0,
     y: 0,
     l: 'M',
+    count: 0,
 
     init: () => {
         //console.log("Start");
@@ -27,7 +28,7 @@ const view = {
         cursor.setAttribute('cy', myData.y);
         yView.innerText = myData.y;
     },
-    addStep: function(text) {
+    addStep: function (text) {
         textarea.value += text;
         myData.l = "";
     }
@@ -36,6 +37,7 @@ const view = {
 function keyUpEvent(event) {
     const key = event.key;
     if (key === 'Control') { return; }
+    if (key === 'Shift') { return; }
 
     //console.log(document.activeElement);
     if (document.activeElement === document.querySelector('textarea')) {
@@ -63,6 +65,8 @@ function keyUpEvent(event) {
                 myData.y += 3;
             else if (myData.y < 20)
                 myData.y++;
+        } else if ('MmLlHhVvCcSsQqTtAaZz'.split('').includes(key)) {
+            myData.l = key;
         } else if (key == 'Enter') {
             // add point
             //console.log(view);
