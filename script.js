@@ -34,6 +34,7 @@ const view = {
         }
     }
 };
+let allCommands = 'MmLlHhVvCcSsQqTtAaZz'.split('');
 
 function keyUpEvent(event) {
     const key = event.key;
@@ -66,7 +67,7 @@ function keyUpEvent(event) {
                 myData.y += 3;
             else if (myData.y < 20)
                 myData.y++;
-        } else if ('MmLlHhVvCcSsQqTtAaZz'.split('').includes(key)) {
+        } else if (allCommands.includes(key)) {
             myData.l = key;
         } else if (key == 'Enter') {
             // add to list of command
