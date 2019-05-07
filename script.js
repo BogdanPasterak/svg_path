@@ -30,10 +30,7 @@ const view = {
     },
     addStep: function (text) {
         if (text.length > 0) {
-            myData.l = "";
-            myData.count = 0;
             textarea.value += text;
-            textarea.value += "\n";
         }
     }
 };
@@ -74,27 +71,41 @@ function keyUpEvent(event) {
         } else if (key == 'Enter') {
             // add to list of command
             let text = '';
+            // 0 param
             if (myData.l == 'Z' || myData.l == 'z') {
                 text = 'Z';
+                myData.l = "";
+                // 3 param
             } else if (myData.l == 'C' || myData.l == 'c') {
                 if (myData.count == 0) {
-                    ;
+                    text = myData.l + " " + myData.x + " " + myData.y;
                     myData.count++;
                 } else if (myData.count == 1) {
-                    ;
+                    text = " " + myData.x + " " + myData.y;
                     myData.count++;
                 } else {
-                    ;
+                    text = " " + myData.x + " " + myData.y + "\n";
+                    myData.count = 0;
+                    myData.l = "";
                 }
-            } else if (myData.l == 'S' || myData.l == 's' || myData.l == 'Q' || myData.l == 'q' || myData.l == 'A' || myData.l == 'a') {
+            // 2 param
+            } else if (myData.l == 'S' || myData.l == 's' ||
+                       myData.l == 'Q' || myData.l == 'q' ||
+                       myData.l == 'A' || myData.l == 'a') {
                 if (myData.count == 0) {
-                    ;
+                    text = myData.l + " " + myData.x + " " + myData.y;
                     myData.count++;
                 } else {
-                    ;
+                    text = " " + myData.x + " " + myData.y + "\n";
+                    myData.count = 0;
+                    myData.l = "";
                 }
+            // 1 param
+            } else if ('MmLlHhVvTt'.split('').includes(myData.l)) {
+                text = myData.l + " " + myData.x + " " + myData.y + "\n";
+                myData.l = "";
             } else {
-                text = myData.l + " " + myData.x + " " + myData.y;
+                text = "";
             }
             view.addStep(text);    
         } else {
