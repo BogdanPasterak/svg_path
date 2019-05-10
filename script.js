@@ -74,7 +74,7 @@ function keyUpEvent(event) {
             let text = '';
             // 0 param
             if (myData.l == 'Z' || myData.l == 'z') {
-                text = 'Z';
+                text = 'Z\n';
                 myData.l = "";
                 // 3 param
             } else if (myData.l == 'C' || myData.l == 'c') {
