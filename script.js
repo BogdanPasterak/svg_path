@@ -31,6 +31,8 @@ const view = {
     addStep: function (text) {
         if (text.length > 0) {
             textarea.value += text;
+            if (text[text.length - 1] == "\n")
+                console.log("nowe");
         }
     }
 };
