@@ -3,6 +3,7 @@ const myData = {
     y: 0,
     l: 'M',
     count: 0,
+    path: "",
 
     init: () => {
         //console.log("Start");
@@ -15,24 +16,31 @@ const view = {
     init: function () {
         board = document.querySelector('.board');
         cursor = document.querySelector('.cursor');
+        path = document.querySelector('.path');
         textarea = document.querySelector('textarea');
         xView = document.querySelector('.x-view');
         yView = document.querySelector('.y-view');
         lView = document.querySelector('.l-view');
     },
-    rePaint: function () {
-        //console.log(cursor);
+    rePaint: function (d) {
+        //console.log(d);
         lView.innerText = myData.l;
         cursor.setAttribute('cx', myData.x);
         xView.innerText = myData.x;
         cursor.setAttribute('cy', myData.y);
         yView.innerText = myData.y;
+        if (d) {
+            path.setAttribute('d', d);
+            console.log(d);
+        }
     },
     addStep: function (text) {
         if (text.length > 0) {
             textarea.value += text;
-            if (text[text.length - 1] == "\n")
-                console.log("nowe");
+            if (text[text.length - 1] == "\n"){
+                //console.log("addStep" , textarea.value)
+                return textarea.value.replace(/\n/g," ");
+            }
         }
     }
 };
@@ -42,6 +50,8 @@ function keyUpEvent(event) {
     const key = event.key;
     if (key === 'Control') { return; }
     if (key === 'Shift') { return; }
+    if (key === 'Alt') { return; }
+    if (key === 'Tab') { return; }
 
     //console.log(document.activeElement);
     if (document.activeElement === document.querySelector('textarea')) {
@@ -49,6 +59,7 @@ function keyUpEvent(event) {
         console.log(pos, view.textarea.value);
     } else {
         let change = true;
+        let answer;
         if (key == 'ArrowRight') {
             if (event.ctrlKey && myData.x <= 95)
                 myData.x += 5;
@@ -110,17 +121,22 @@ function keyUpEvent(event) {
             } else {
                 text = "";
             }
-            view.addStep(text);    
+
+            answer = view.addStep(text);
+            //console.log("answer after addStep", answer);
+            if (answer){
+                myData.path = answer;
+            }
         } else {
             console.log(key);
             change = false;
         }
-
+         
         if (change) {
-            view.rePaint();
+            //console.log("answer in change", answer);
+            view.rePaint(answer);
         }
     }
-    view.rePaint();
 }
 
 window.onload = function (e) {
